@@ -1,5 +1,4 @@
 import math
-import copy
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
@@ -38,7 +37,7 @@ class Transformer(nn.Module):
         
         encoder_layer = nn.TransformerEncoderLayer(
             d_model=d_model, nhead=nhead,
-            dim_feedforward=dim_feedforward, dropout=dropout,
+            dim_feedforward=dim_feedforward, dropout=dropout, batch_first=True,
             activation='relu'
         )
         self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
@@ -63,7 +62,7 @@ class Transformer(nn.Module):
 # Model OverHead, meaning functions directly related to our current model, EX: fit, forecast, evalute, etc.
 class ModelOH:
     def __init__(self, model_params: list, lr: int):
-        self.device = torch.device("cuda")
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = Transformer(model_params).to(self.device)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=lr, weight_decay=1e-5)
         self.criterion = nn.HuberLoss()
