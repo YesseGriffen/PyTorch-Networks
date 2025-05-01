@@ -16,8 +16,11 @@ How to use <br/>
 Example use case
 --------------------------- <br/>
 Requirements --- torch == 2.6.0+cu126 *Don't need cuda, regular torch will work, but is slower*
+             --- torchaudio == 2.60+cu126 *Should install with torch*
+             --- torchvision == 0.21.0+cu126 *Should install with torch*
              --- matplotlib == 3.10.1 *Optional, if you don't want to use graphs comment out graph_results in ActionEngine as well as the call in MainEngine*
-
+             --- collections and math, these should be already installed for python.
+  
 Pick a model from the models folder.
 
 In a code editor make sure ActionEngine is importing the right file.
