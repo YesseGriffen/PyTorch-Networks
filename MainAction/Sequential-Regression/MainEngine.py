@@ -15,7 +15,7 @@ def create_params():
     window, step, batch_size = 15, 5, 12
     feature, forecast = 1, 1
     input_dim, dim_feedforward, output_dim = feature, 192, forecast
-    d_model, nhead, num_layers, dropout = 40, 5, 3, 0.2
+    d_model, nhead, num_layers, dropout = 40, 4, 3, 0.2
     data_params = [window, feature, step, forecast, batch_size]
     model_params = [input_dim, dim_feedforward, output_dim, d_model, nhead, num_layers, dropout]
 
@@ -29,8 +29,8 @@ if __name__ == "__main__":
     from ActionEngine import ActionMain
     #---------------------------------------------
     # Using the last 2000 to train and the last 100 to act as new data
-    data = torch.from_numpy(all_data_py.data[-2000:-100]).float()
-    new_data = torch.from_numpy(all_data_py.data[-100:]).float()
+    data = torch.Tensor(all_data_py.data[-2000:-100]).float()
+    new_data = torch.Tensor(all_data_py.data[-100:]).float()
     data_params, model_params = create_params()
 
     engine = ActionMain(data, data_params, model_params)
